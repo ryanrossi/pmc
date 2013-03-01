@@ -108,7 +108,7 @@ namespace pmc {
 
             while (k > k_prev) {
                 k_prev = k;
-                for (int i = 0; i < colors[k].size(); i++) { //use ind directly, no need to use Verts/edges
+                for (int i = 0; i < colors[k].size(); i++) { //use directly, sort makes it fast!
                     if (adj[u][colors[k][i]]) {
                         k++;
                         break;
