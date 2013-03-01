@@ -47,8 +47,7 @@ namespace pmc {
             u = P[w].get_id();
             k = 1, k_prev = 0;
 
-            for (long long h = vs[u]; h < vs[u + 1]; h++)
-                ind[es[h]] = 1;
+            for (long long h = vs[u]; h < vs[u + 1]; h++)  ind[es[h]] = 1;
 
             while (k > k_prev) {
                 k_prev = k;
@@ -77,7 +76,6 @@ namespace pmc {
         if (j > 0)  P[j-1].set_bound(0);
         if (min_k <= 0)  min_k = 1;
 
-        // start from min_k and add all Verts with a larger core
         for (k = min_k; k <= max_k; k++)
             for (int w = 0; w < colors[k].size(); w++) {
                 P[j].set_id(colors[k][w]);
@@ -95,9 +93,8 @@ namespace pmc {
             vector<int>& C,
             vector<int>& C_max,
             vector< vector<int> >& colors,
-            int& mc
-            ,bool** &adj
-    ) {
+            int& mc,
+            bool** &adj) {
 
         int j = 0, u = 0, k = 1, k_prev = 0;
         int max_k = 1;
@@ -132,10 +129,8 @@ namespace pmc {
         }
 
         if (j > 0)  P[j-1].set_bound(0);
-
         if (min_k <= 0)  min_k = 1;
 
-        // start from min_k and add all Verts with a larger core
         for (k = min_k; k <= max_k; k++)
             for (int w = 0; w < colors[k].size(); w++) {
                 P[j].set_id(colors[k][w]);
@@ -143,6 +138,5 @@ namespace pmc {
                 j++;
             }
     }
-
 }
 #endif
