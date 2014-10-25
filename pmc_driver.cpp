@@ -109,7 +109,6 @@ int main(int argc, char *argv[]) {
         cout << "Size (omega): " << C.size() << endl;
         print_max_clique(C);
 
-        if (!G.clique_test(G,C))  cout << "error C is not a clique." <<endl;
         if (C.size() < in.param_ub)
             cout << "Clique of size " << in.param_ub << " does not exist." <<endl;
     }
