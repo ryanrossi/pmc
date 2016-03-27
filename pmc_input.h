@@ -51,13 +51,13 @@ class input {
 
         input(int argc, char *argv[]) {
             // default values
-            algorithm = -1;
-            threads = 1;
+            algorithm = 0;
+            threads = omp_get_max_threads();
             experiment = 0;
             lb = 0;
             ub = 0;
             param_ub = 0;
-            adj_limit = 10000;
+            adj_limit = 20000;
             time_limit = 60 * 60; 			// max time to search
             remove_time = 4.0; 				// time to wait before reducing graph
             verbose = false;
@@ -153,6 +153,7 @@ class input {
                 cout << "File not found!" << endl;
                 return;
             }
+            cout << "workers: " << threads <<endl;
             omp_set_num_threads(threads);
         }
 

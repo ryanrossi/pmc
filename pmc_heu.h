@@ -56,7 +56,7 @@ namespace pmc {
                 initialize();
             }
 
-            void initialize() {
+            inline void initialize() {
                 sec = get_time();
                 srand (time(NULL));
             };
@@ -77,10 +77,10 @@ namespace pmc {
             int search_cores(pmc_graph& graph, vector<int>& C_max, int lb);
             int search_bounds(pmc_graph& graph, vector<int>& C_max);
 
-            void branch(vector<Vertex>& P, int sz,
+            inline void branch(vector<Vertex>& P, int sz,
                     int& mc, vector<int>& C, vector<short>& ind);
 
-            void print_info(vector<int> C_max);
+            inline void print_info(vector<int> C_max);
     };
 };
 #endif

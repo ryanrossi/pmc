@@ -96,7 +96,7 @@ namespace pmc {
             ~pmcx_maxclique() {};
 
             int search(pmc_graph& G, vector<int>& sol);
-            void branch(
+            inline void branch(
                     vector<long long>& vs,
                     vector<int>& es,
                     vector<Vertex> &P,
@@ -108,7 +108,7 @@ namespace pmc {
                     int& mc);
 
             int search_dense(pmc_graph& G, vector<int>& sol);
-            void branch_dense(
+            inline void branch_dense(
                     vector<long long>& vs,
                     vector<int>& es,
                     vector<Vertex> &P,

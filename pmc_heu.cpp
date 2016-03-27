@@ -179,7 +179,7 @@ int pmc_heu::search(pmc_graph& G, vector<int>& C_max) {
 }
 
 
-void pmc_heu::print_info(vector<int> C_max) {
+inline void pmc_heu::print_info(vector<int> C_max) {
     cout << "*** [pmc heuristic: thread " << omp_get_thread_num() + 1;
     cout << "]   current max clique = " << C_max.size();
     cout << ",  time = " << get_time() - sec << " sec" <<endl;
