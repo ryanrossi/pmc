@@ -2,17 +2,22 @@
 # Makefile for PMC
 #
 # Ryan A. Rossi
-# Copyright, 2012-2013
+# Copyright, 2012-2016
 #
 
 .KEEP_STATE:
 
 all: pmc
 
-OPTFLAGS    = -O3
+OPTFLAGS    = -O3 	 
 CFLAGS      = $(OPTFLAGS)
+CFLAGS 		+= -D_GLIBCXX_PARALLEL 
+CFLAGS 		+= -floop-parallelize-all -ftree-loop-distribution -funit-at-a-time
+
+
 CXX          = g++
 H_FILES     = pmc.h
+
 
 .cpp.o:
 	$(CXX) $(CFLAGS) -c $<
