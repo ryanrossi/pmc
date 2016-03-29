@@ -26,7 +26,7 @@ int pmcx_maxclique::search(pmc_graph& G, vector<int>& sol) {
 
     vertices = G.get_vertices();
     edges = G.get_edges();
-    degree = G.get_degree();
+//    degree = G.get_degree();
     int* pruned = new int[G.num_vertices()];
     memset(pruned, 0, G.num_vertices() * sizeof(int));
     int mc = lb, i = 0, u = 0;
@@ -72,7 +72,7 @@ int pmcx_maxclique::search(pmc_graph& G, vector<int>& sol) {
                     for (long long j = vs[u]; j < vs[u + 1]; ++j)
                         if (!pruned[es[j]])
                             if ((*bound)[es[j]] > mc)
-                                P.push_back(Vertex(es[j], (*degree)[es[j]]));
+                            	P.push_back(Vertex(es[j], (vs[es[j]+1] - vs[es[j]]) )); /// local
 
 
                     if (P.size() > mc) {
@@ -97,7 +97,6 @@ int pmcx_maxclique::search(pmc_graph& G, vector<int>& sol) {
             }
         }
     }
-
     if (pruned) delete[] pruned;
 
     sol.resize(mc);
@@ -176,7 +175,7 @@ int pmcx_maxclique::search_dense(pmc_graph& G, vector<int>& sol) {
 
     vertices = G.get_vertices();
     edges = G.get_edges();
-    degree = G.get_degree();
+//    degree = G.get_degree();
     bool** adj = G.adj;
 
     int* pruned = new int[G.num_vertices()];
@@ -225,7 +224,7 @@ int pmcx_maxclique::search_dense(pmc_graph& G, vector<int>& sol) {
                     for (long long j = vs[u]; j < vs[u + 1]; ++j)
                         if (!pruned[es[j]])
                             if ((*bound)[es[j]] > mc)
-                                P.push_back(Vertex(es[j], (*degree)[es[j]]));
+                            	P.push_back(Vertex(es[j], (vs[es[j]+1] - vs[es[j]]) )); /// local
 
                     if (P.size() > mc) {
                         // neighborhood core ordering and pruning

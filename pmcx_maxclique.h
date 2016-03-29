@@ -43,7 +43,6 @@ namespace pmc {
             vector<long long>* vertices;
             vector<int>* bound;
             vector<int>* order;
-            vector<int>* degree;
             int param_ub;
             int ub;
             int lb;
