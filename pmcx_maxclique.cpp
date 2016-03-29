@@ -106,9 +106,6 @@ int pmcx_maxclique::search(pmc_graph& G, vector<int>& sol) {
     return sol.size();
 }
 
-
-
-
 void pmcx_maxclique::branch(
         vector<long long>& vs,
         vector<int>& es,
@@ -169,18 +166,12 @@ void pmcx_maxclique::branch(
     }
 }
 
-
-
-
-
-
 /**
  * Dense graphs: we use ADJ matrix + CSC Representation
  * ADJ:	  O(1) edge lookups
  * CSC:	  O(1) time to compute degree
  *
  */
-
 int pmcx_maxclique::search_dense(pmc_graph& G, vector<int>& sol) {
 
     vertices = G.get_vertices();
@@ -271,8 +262,6 @@ int pmcx_maxclique::search_dense(pmc_graph& G, vector<int>& sol) {
     G.print_break();
     return sol.size();
 }
-
-
 
 
 void pmcx_maxclique::branch_dense(

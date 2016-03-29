@@ -12,7 +12,7 @@ all: pmc
 OPTFLAGS    = -O3 	 
 CFLAGS      = $(OPTFLAGS)
 CFLAGS 		+= -D_GLIBCXX_PARALLEL 
-CFLAGS 		+= -floop-parallelize-all -ftree-loop-distribution -funit-at-a-time
+CFLAGS 		+= -floop-parallelize-all -ftree-loop-distribution
 
 
 CXX          = g++
