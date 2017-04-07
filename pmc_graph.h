@@ -46,7 +46,7 @@ namespace pmc {
             vector<int> degree;
             int min_degree;
             int max_degree;
-            int avg_degree;
+            double avg_degree;
             bool is_gstats;
             string fn;
             bool** adj;
