@@ -44,8 +44,8 @@ int pmcx_maxclique::search(pmc_graph& G, vector<int>& sol) {
     C_max.reserve(G.get_max_degree()+1);
 
     // init the neigh coloring array
-    vector< vector<int> > colors(G.get_max_degree()+1);
-    for (int i = 0; i < G.get_max_degree()+1; i++)  colors[i].reserve(G.get_max_degree()+1);
+    vector< vector<int> > colors(G.get_max_core()+1);
+    for (int i = 0; i < G.get_max_core()+1; i++)  colors[i].reserve(G.get_max_core()+1);
 
     // order verts for our search routine
     vector<Vertex> V;
@@ -195,8 +195,8 @@ int pmcx_maxclique::search_dense(pmc_graph& G, vector<int>& sol) {
     C_max.reserve(G.get_max_degree()+1);
 
     // init the neigh coloring array
-    vector< vector<int> > colors(G.get_max_degree()+1);
-    for (int i = 0; i < G.get_max_degree()+1; i++)  colors[i].reserve(G.get_max_degree()+1);
+    vector< vector<int> > colors(G.get_max_core()+1);
+    for (int i = 0; i < G.get_max_core()+1; i++)  colors[i].reserve(G.get_max_core()+1);
 
     // order verts for our search routine
     vector<Vertex> V;
