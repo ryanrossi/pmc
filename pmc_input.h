@@ -48,6 +48,36 @@ class input {
         string output;
         string edge_sorter;
         string vertex_search_order;
+        
+        input() {
+            // default values
+            algorithm = 0;
+            threads = omp_get_max_threads();
+            experiment = 0;
+            lb = 0;
+            ub = 0;
+            param_ub = 0;
+            adj_limit = 20000;
+            time_limit = 60 * 60; 			// max time to search
+            remove_time = 4.0; 				// time to wait before reducing graph
+            verbose = false;
+            graph_stats = false;
+            help = false;
+            MCE = false;
+            decreasing_order = false;
+            heu_strat = "kcore";
+            vertex_search_order = "deg";
+            format = "mtx";
+            graph = "data/sample.mtx";
+            output = "";
+            string edge_sorter = "";
+            
+            // both off, use default alg
+            if (heu_strat == "0" && algorithm == -1)
+                algorithm = 0;
+
+            if (threads <= 0) threads = 1;
+        }
 
         input(int argc, char *argv[]) {
             // default values

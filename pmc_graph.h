@@ -60,6 +60,8 @@ namespace pmc {
                 vertices = vs;
                 vertex_degrees();
             }
+            pmc_graph(long long nedges, int *ei, int *ej, int offset);
+                
             // destructor
             ~pmc_graph();
 

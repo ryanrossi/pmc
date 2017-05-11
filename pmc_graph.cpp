@@ -138,6 +138,26 @@ void pmc_graph::read_edges(const string& filename) {
     cout << "self-loops: " << self_edges <<endl;
 }
 
+pmc_graph::pmc_graph(long long nedges, int *ei, int *ej, int offset) {
+    initialize();
+    map< int, vector<int> > vert_list;
+    for (long long i = 0; i < nedges; i++) {
+        int v = ei[i] - offset;
+        int u = ej[i] - offset;
+        if ( v > u ) {
+            vert_list[v].push_back(u);
+            vert_list[u].push_back(v);
+        }
+    }
+    vertices.push_back(edges.size());
+    for (int i=0; i < vert_list.size(); i++) {
+        edges.insert(edges.end(),vert_list[i].begin(),vert_list[i].end());
+        vertices.push_back(edges.size());
+    }
+    vert_list.clear();
+    vertex_degrees();
+}
+
 
 void pmc_graph::read_mtx(const string& filename) {
     float connStrength = -DBL_MAX;

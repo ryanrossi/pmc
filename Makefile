@@ -9,10 +9,10 @@
 
 all: pmc
 
-OPTFLAGS    = -O3 	 
-CFLAGS      = $(OPTFLAGS)
-CFLAGS 		+= -D_GLIBCXX_PARALLEL 
-CFLAGS 		+= -floop-parallelize-all -ftree-loop-distribution
+OPTFLAGS    = -O3 
+CFLAGS      = $(OPTFLAGS) -fPIC
+#CFLAGS 		+= -D_GLIBCXX_PARALLEL 
+#CFLAGS 		+= -floop-parallelize-all -ftree-loop-distribution
 
 
 CXX          = g++
@@ -40,5 +40,13 @@ $(OBJ_PMC): $(H_FILES) Makefile
 pmc: $(OBJ_PMC) $(H_FILES)
 	$(CXX) $(CFLAGS) -o pmc $(OBJ_PMC) -fopenmp
 	
+libpmc.so: $(IO_SRC) $(PMC_SRC) $(BOUND_LIB_SRC) $(H_FILES) pmc_lib.cpp
+	$(CXX) -static-libstdc++ $(CFLAGS) -shared -o libpmc.so \
+		$(IO_SRC) $(PMC_SRC) $(BOUND_LIB_SRC) pmc_lib.cpp -fopenmp
+		
+libpmc_test: libpmc.so libpmc_test.cpp
+	$(CXX) libpmc_test.cpp ./libpmc.so  -o libpmc_test
+	./libpmc_test	
+	
 clean:
-	rm -rf *.o pmc
+	rm -rf *.o pmc libpmc.so
