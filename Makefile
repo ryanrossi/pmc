@@ -9,7 +9,8 @@
 
 all: pmc
 
-OPTFLAGS    = -O3 
+#OPTFLAGS    = -g -D _GLIBCXX_DEBUG
+OPTFLAGS    = -O3
 CFLAGS      = $(OPTFLAGS) -fPIC
 #CFLAGS 		+= -D_GLIBCXX_PARALLEL 
 #CFLAGS 		+= -floop-parallelize-all -ftree-loop-distribution

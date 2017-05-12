@@ -44,7 +44,10 @@ int pmcx_maxclique::search(pmc_graph& G, vector<int>& sol) {
     C_max.reserve(G.get_max_degree()+1);
 
     // init the neigh coloring array
-    vector< vector<int> > colors(G.get_max_core()+1);
+    // in theory, this should be G.get_max_core()+1, but
+    // the starting color is 1, not 0, so that's +2
+    // and then there is an extra off-by-one error that makes +3
+    vector< vector<int> > colors(G.get_max_core()+3);
     for (int i = 0; i < G.get_max_core()+1; i++)  colors[i].reserve(G.get_max_core()+1);
 
     // order verts for our search routine
