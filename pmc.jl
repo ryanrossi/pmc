@@ -19,17 +19,12 @@ function pmc(A::SparseMatrixCSC)
  outsize = maxd
  output = zeros(Int32,maxd)
  
- try
  clique_size = ccall( 
     (:max_clique, libpmc), Cint,
     (Clonglong, Ptr{Cint}, Ptr{Cint}, Cint, Cint, Ptr{Cint}),
     length(ei), ei, ej, offset, outsize, output)
     
   return map(Int64, output[1:clique_size])
- catch err
-  @show err
-  return collect(1:size(A,1))
- end
 end
 
 end
