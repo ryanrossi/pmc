@@ -17,7 +17,7 @@
  ============================================================================
  */
 
-#include "pmc_maxclique.h"
+#include "pmc/pmc_maxclique.h"
 
 using namespace std;
 using namespace pmc;

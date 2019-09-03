@@ -17,7 +17,7 @@
  ============================================================================
  */
 
-#include "pmc_utils.h"
+#include "pmc/pmc_utils.h"
 
 using namespace std;
 
