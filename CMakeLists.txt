@@ -32,3 +32,6 @@ target_link_libraries(pmc OpenMP::OpenMP_CXX)
 target_link_libraries(pmc_main OpenMP::OpenMP_CXX)
 
 set_target_properties(pmc PROPERTIES PUBLIC_HEADER "${PMC_HEADER_FILES}")
+
+install(FILES ${PMC_HEADER_FILES} 
+        DESTINATION include/pmc)
