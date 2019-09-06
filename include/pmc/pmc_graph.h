@@ -61,6 +61,7 @@ namespace pmc {
                 vertex_degrees();
             }
             pmc_graph(long long nedges, int *ei, int *ej, int offset);
+            pmc_graph(map<int,vector<int> > v_map);
                 
             // destructor
             ~pmc_graph();
