@@ -18,6 +18,7 @@
  */
 
 #include "pmc/pmc.h"
+#include "pmc/pmc_input.h"
 
 using namespace std;
 using namespace pmc;
