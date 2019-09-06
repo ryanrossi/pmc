@@ -158,6 +158,14 @@ pmc_graph::pmc_graph(long long nedges, int *ei, int *ej, int offset) {
     vertex_degrees();
 }
 
+pmc_graph::pmc_graph(map<int,vector<int> > v_map) {
+  vertices.push_back(edges.size());
+  for (int i=0;i < v_map.size(); i++) {
+    edges.insert(edges.end(),v_map[i].begin(),v_map[i].end());
+    vertices.push_back(edges.size());
+  }
+  vertex_degrees();
+}
 
 void pmc_graph::read_mtx(const string& filename) {
     float connStrength = -DBL_MAX;
