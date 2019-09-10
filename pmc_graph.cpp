@@ -29,15 +29,17 @@ void pmc_graph::initialize() {
     avg_degree = 0;
     max_core = 0;
     is_gstats = false;
-    adj = NULL;
+    adj = nullptr;
 }
 
 pmc_graph::~pmc_graph() {
-   int size = num_vertices();
-   for (int i = 0; i < size; ++i) {
-       delete[] adj[i];
-   }
-   delete[] adj;
+  if (adj != nullptr) {
+    int size = num_vertices();
+    for (int i = 0; i < size; ++i) {
+      delete[] adj[i];
+    }
+    delete[] adj;
+  }
 }
 
 pmc_graph::pmc_graph(const string& filename) {
