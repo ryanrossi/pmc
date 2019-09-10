@@ -32,7 +32,13 @@ void pmc_graph::initialize() {
     adj = NULL;
 }
 
-pmc_graph::~pmc_graph() { }
+pmc_graph::~pmc_graph() {
+   int size = num_vertices();
+   for (int i = 0; i < size; ++i) {
+       delete[] adj[i];
+   }
+   delete[] adj;
+}
 
 pmc_graph::pmc_graph(const string& filename) {
     initialize();
