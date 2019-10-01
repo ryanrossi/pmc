@@ -307,17 +307,22 @@ void pmc_graph::sum_vertex_degrees() {
 }
 
 void pmc_graph::vertex_degrees() {
-    int n = vertices.size() - 1;
+    int n = static_cast<int>(vertices.size()) - 1;
     degree.resize(n);
 
     // initialize min and max to degree of first vertex
-    max_degree = min_degree = vertices[1] - vertices[0];
-    for (long long v=0; v<n; v++) {
-        degree[v] = vertices[v+1] - vertices[v];
-        if (max_degree < degree[v])  max_degree = degree[v];
-        if (degree[v] < min_degree)  min_degree = degree[v];
+    min_degree = static_cast<int>(vertices[1]) - static_cast<int>(vertices[0]);
+    max_degree = static_cast<int>(vertices[1]) - static_cast<int>(vertices[0]);
+    for (int v=0; v<n; v++) {
+        degree[v] = static_cast<int>(vertices[v+1]) - static_cast<int>(vertices[v]);
+        if (max_degree < degree[v])  {
+            max_degree = degree[v];
+        }
+        if (degree[v] < min_degree)  {
+            min_degree = degree[v];
+        }
     }
-    avg_degree = (double)edges.size()/n;
+    avg_degree = static_cast<double>(edges.size())/ static_cast<double>(n);
     return;
 }
 
