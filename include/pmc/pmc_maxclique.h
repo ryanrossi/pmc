@@ -114,7 +114,7 @@ namespace pmc {
                     vector<int>& C_max,
                     int* &pruned,
                     int& mc,
-                    bool** &adj);
+                    vector<vector<bool>> &adj);
 
     };
 };

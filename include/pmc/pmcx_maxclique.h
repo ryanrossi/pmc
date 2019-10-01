@@ -117,7 +117,7 @@ namespace pmc {
                     vector< vector<int> >& colors,
                     int* &pruned,
                     int& mc,
-                    bool** &adj);
+                    vector<vector<bool>> &adj);
 
     };
 };

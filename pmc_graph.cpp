@@ -29,17 +29,9 @@ void pmc_graph::initialize() {
     avg_degree = 0;
     max_core = 0;
     is_gstats = false;
-    adj = nullptr;
 }
 
 pmc_graph::~pmc_graph() {
-  if (adj != nullptr) {
-    int size = num_vertices();
-    for (int i = 0; i < size; ++i) {
-      delete[] adj[i];
-    }
-    delete[] adj;
-  }
 }
 
 pmc_graph::pmc_graph(const string& filename) {
@@ -281,10 +273,9 @@ void pmc_graph::create_adj() {
     double sec = get_time();
 
     int size = num_vertices();
-    adj = new bool*[size];
+    adj.resize(size);
     for (int i = 0; i < size; i++) {
-        adj[i] = new bool[size];
-        memset(adj[i], 0, size * sizeof(bool));
+        adj[i].resize(size);
     }
 
     for (int i = 0; i < num_vertices(); i++) {

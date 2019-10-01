@@ -179,7 +179,7 @@ int pmcx_maxclique::search_dense(pmc_graph& G, vector<int>& sol) {
     vertices = G.get_vertices();
     edges = G.get_edges();
 //    degree = G.get_degree();
-    bool** adj = G.adj;
+    auto adj = G.adj;
 
     int* pruned = new int[G.num_vertices()];
     memset(pruned, 0, G.num_vertices() * sizeof(int));
@@ -279,7 +279,7 @@ void pmcx_maxclique::branch_dense(
         vector< vector<int> >& colors,
         int* &pruned,
         int& mc,
-        bool** &adj) {
+        vector<vector<bool>> &adj) {
 
     // stop early if ub is reached
     if (not_reached_ub) {

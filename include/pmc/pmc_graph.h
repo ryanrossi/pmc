@@ -49,7 +49,7 @@ namespace pmc {
             double avg_degree;
             bool is_gstats;
             string fn;
-            bool** adj;
+            vector<vector<bool>> adj;
 
             // constructor
             pmc_graph(const string& filename);
@@ -127,7 +127,7 @@ namespace pmc {
 
             // clique utils
             int initial_pruning(pmc_graph& G, int* &pruned, int lb);
-            int initial_pruning(pmc_graph& G, int* &pruned, int lb, bool** &adj);
+            int initial_pruning(pmc_graph& G, int* &pruned, int lb, vector<vector<bool>> &adj);
             void order_vertices(vector<Vertex> &V, pmc_graph &G,
                     int &lb_idx, int &lb, string vertex_ordering, bool decr_order);
 

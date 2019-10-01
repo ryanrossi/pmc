@@ -45,7 +45,7 @@ int pmc_graph::initial_pruning(pmc_graph& G, int* &pruned, int lb) {
 }
 
 
-int pmc_graph::initial_pruning(pmc_graph& G, int* &pruned, int lb, bool** &adj) {
+int pmc_graph::initial_pruning(pmc_graph& G, int* &pruned, int lb, vector<vector<bool>> &adj) {
     int lb_idx = 0;
     for (int i = G.num_vertices()-1; i >= 0; i--) {
         if (kcore[kcore_order[i]] == lb)  lb_idx = i;
