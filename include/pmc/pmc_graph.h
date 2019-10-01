@@ -56,8 +56,8 @@ namespace pmc {
             pmc_graph(bool graph_stats, const string& filename);
             pmc_graph(const string& filename, bool make_adj);
             pmc_graph(vector<long long> vs, vector<int> es) {
-                edges = es;
-                vertices = vs;
+                edges = std::move(es);
+                vertices = std::move(vs);
                 vertex_degrees();
             }
             pmc_graph(long long nedges, int *ei, int *ej, int offset);
