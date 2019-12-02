@@ -66,6 +66,7 @@ namespace pmc {
                 colors[max_k+1].clear();
             }
 
+            #pragma omp critical (neigh_color_bound)
             colors[k].push_back(u);
             if (k < min_k) {
                 P[j].set_id(u);
@@ -121,7 +122,8 @@ namespace pmc {
                 colors[max_k+1].clear();
             }
 
-            colors[k].push_back(u);
+          #pragma omp critical (neigh_color_dense)
+          colors[k].push_back(u);
             if (k < min_k) {
                 P[j].set_id(u);
                 j++;
