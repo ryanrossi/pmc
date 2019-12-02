@@ -19,11 +19,11 @@ target_include_directories(pmc PUBLIC
         $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 )
 
-target_compile_options(pmc PRIVATE -fPIC -fopenmp)
+#target_compile_options(pmc PRIVATE -fPIC -fopenmp)
 
 add_executable(pmc_main pmc_driver.cpp)
 target_link_libraries(pmc_main pmc)
-target_compile_options(pmc_main PRIVATE -fPIC -fopenmp)
+#target_compile_options(pmc_main PRIVATE -fPIC -fopenmp)
 
 find_package(OpenMP REQUIRED)
 target_link_libraries(pmc OpenMP::OpenMP_CXX)
