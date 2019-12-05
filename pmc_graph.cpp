@@ -138,7 +138,7 @@ void pmc_graph::read_edges(const string& filename) {
     cout << "self-loops: " << self_edges <<endl;
 }
 
-pmc_graph::pmc_graph(long long nedges, int *ei, int *ej, int offset) {
+pmc_graph::pmc_graph(long long nedges, const int *ei, const int *ej, int offset) {
     initialize();
     map< int, vector<int> > vert_list;
     for (long long i = 0; i < nedges; i++) {

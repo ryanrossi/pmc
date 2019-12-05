@@ -60,7 +60,7 @@ namespace pmc {
                 vertices = std::move(vs);
                 vertex_degrees();
             }
-            pmc_graph(long long nedges, int *ei, int *ej, int offset);
+            pmc_graph(long long nedges, const int *ei, const int *ej, int offset);
             pmc_graph(map<int,vector<int> > v_map);
                 
             // destructor
