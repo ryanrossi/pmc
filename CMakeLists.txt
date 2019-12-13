@@ -1,6 +1,5 @@
-cmake_minimum_required(VERSION 2.8.8)
-project(pmc)
-set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+cmake_minimum_required(VERSION 3.10)
+project(pmc VERSION 1.0.0)
 
 set(PMC_SOURCE_FILES
         ${CMAKE_CURRENT_SOURCE_DIR}/pmc_heu.cpp
@@ -20,16 +19,15 @@ target_include_directories(pmc PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
         )
-#target_compile_options(pmc PRIVATE -fPIC -fopenmp)
 
 add_executable(pmc_main pmc_driver.cpp)
 target_link_libraries(pmc_main pmc)
-#target_compile_options(pmc_main PRIVATE -fPIC -fopenmp)
 
 find_package(OpenMP REQUIRED)
 target_link_libraries(pmc OpenMP::OpenMP_CXX)
 target_link_libraries(pmc_main OpenMP::OpenMP_CXX)
 
+# Installation
 include(GNUInstallDirs)
 
 install(TARGETS pmc
@@ -42,4 +40,8 @@ install(EXPORT pmc-export
         DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/pmc
         NAMESPACE pmc::
         FILE pmcTargets.cmake
+        )
+
+install(FILES cmake/pmcConfig.cmake
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/pmc
         )
