@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 2.8.8)
 project(pmc)
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 set(PMC_SOURCE_FILES
         ${CMAKE_CURRENT_SOURCE_DIR}/pmc_heu.cpp
@@ -12,14 +13,13 @@ set(PMC_SOURCE_FILES
         ${CMAKE_CURRENT_SOURCE_DIR}/pmc_clique_utils.cpp
         )
 
-add_library(pmc SHARED ${PMC_SOURCE_FILES})
+add_library(pmc ${PMC_SOURCE_FILES})
 
 target_include_directories(pmc PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
         )
-
 #target_compile_options(pmc PRIVATE -fPIC -fopenmp)
 
 add_executable(pmc_main pmc_driver.cpp)
