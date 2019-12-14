@@ -42,6 +42,8 @@ install(EXPORT pmc-export
         FILE pmcTargets.cmake
         )
 
+install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+
 install(FILES cmake/pmcConfig.cmake
         DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/pmc
         )
