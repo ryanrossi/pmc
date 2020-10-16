@@ -36,6 +36,12 @@ install(TARGETS pmc
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
         )
 
+export(
+        EXPORT pmc-export
+        FILE ${CMAKE_CURRENT_BINARY_DIR}/pmcTargets.cmake
+        NAMESPACE pmc::
+)
+
 install(EXPORT pmc-export
         DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/pmc
         NAMESPACE pmc::
