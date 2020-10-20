@@ -17,7 +17,7 @@
  ============================================================================
  */
 
-#include "pmc_heu.h"
+#include "pmc/pmc_heu.h"
 
 using namespace pmc;
 using namespace std;

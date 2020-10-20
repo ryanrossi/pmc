@@ -17,13 +17,13 @@
  ============================================================================
  */
 
-#include "pmc_utils.h"
+#include "pmc/pmc_utils.h"
 
 using namespace std;
 
 bool fexists(const char *filename) {
     ifstream ifile(filename);
-    return ifile;
+    return !ifile.fail();
 }
 
 void usage(char *argv0) {
@@ -114,7 +114,7 @@ int getdir (string dir, vector<string> &files) {
     }
 
     while ((dirp = readdir(dp)) != NULL) {
-        if (dirp->d_name != ".")
+        if (strcmp(dirp->d_name, ".") != 0)
             files.push_back(string(dirp->d_name));
     }
     closedir(dp);

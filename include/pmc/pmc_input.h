@@ -25,6 +25,7 @@
 
 using namespace std;
 
+namespace pmc {
 class input {
     public:
         // instance variables
@@ -48,7 +49,7 @@ class input {
         string output;
         string edge_sorter;
         string vertex_search_order;
-        
+
         input() {
             // default values
             algorithm = 0;
@@ -71,7 +72,7 @@ class input {
             graph = "data/sample.mtx";
             output = "";
             string edge_sorter = "";
-            
+
             // both off, use default alg
             if (heu_strat == "0" && algorithm == -1)
                 algorithm = 0;
@@ -188,4 +189,5 @@ class input {
         }
 
 };
+} // namespace pmc
 #endif

@@ -17,7 +17,7 @@
  ============================================================================
  */
 
-#include "pmc_graph.h"
+#include "pmc/pmc_graph.h"
 
 using namespace pmc;
 

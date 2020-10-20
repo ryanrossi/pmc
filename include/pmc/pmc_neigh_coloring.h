@@ -94,7 +94,7 @@ namespace pmc {
             vector<int>& C_max,
             vector< vector<int> >& colors,
             int& mc,
-            bool** &adj) {
+            vector<vector<bool>> &adj) {
 
         int j = 0, u = 0, k = 1, k_prev = 0;
         int max_k = 1;
