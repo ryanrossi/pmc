@@ -23,7 +23,7 @@ using namespace std;
 
 bool fexists(const char *filename) {
     ifstream ifile(filename);
-    return ifile;
+    return static_cast<bool>(ifile);
 }
 
 void usage(char *argv0) {
