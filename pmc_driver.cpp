@@ -114,6 +114,7 @@ int main(int argc, char *argv[]) {
             cout << "Clique of size " << in.param_ub << " does not exist." <<endl;
     }
     C.clear();
-    return 0;
+  cout << "Done." << endl;
+  return 0;
 }
 
