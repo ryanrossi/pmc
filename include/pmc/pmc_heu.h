@@ -40,11 +40,14 @@ namespace pmc {
             int ub;
             string strat;
 
+            int num_threads;
+
             pmc_heu(pmc_graph& G, input& params) {
                 K = G.get_kcores();
                 order = G.get_kcore_ordering();
                 ub = params.ub;
                 strat = params.heu_strat;
+                num_threads = params.threads;
                 initialize();
             }
 

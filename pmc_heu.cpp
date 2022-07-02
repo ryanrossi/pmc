@@ -72,7 +72,8 @@ int pmc_heu::search_bounds(pmc_graph& G,
     int mc = 0, mc_prev, mc_cur, i, v, k, lb_idx = 0;
 
     #pragma omp parallel for schedule(dynamic) \
-        shared(G, X, mc, C_max, lb_idx) private(i, v, P, mc_prev, mc_cur, C, k) firstprivate(ind)
+        shared(G, X, mc, C_max, lb_idx) private(i, v, P, mc_prev, mc_cur, C, k) firstprivate(ind) \
+        num_threads(num_threads)
     for (i = G.num_vertices()-1; i >= 0; --i) {
         if (found_ub) continue;
 
@@ -138,7 +139,7 @@ int pmc_heu::search_cores(pmc_graph& G, vector<int>& C_max, int lb) {
     }
 
     #pragma omp parallel for schedule(dynamic) \
-        shared(G, X, mc, C_max) private(i, v, P, mc_prev, mc_cur, C) firstprivate(ind)
+        shared(G, X, mc, C_max) private(i, v, P, mc_prev, mc_cur, C) firstprivate(ind) num_threads(num_threads)
     for (i = lb_idx; i <= G.num_vertices()-1; i++) {
 
         v = (*order)[i];

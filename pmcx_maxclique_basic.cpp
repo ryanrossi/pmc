@@ -61,7 +61,7 @@ int pmcx_maxclique_basic::search(pmc_graph& G, vector<int>& sol) {
     for (int t = 0; t < num_threads; ++t)  induce_time[t] = induce_time[t] + t/4;
 
     #pragma omp parallel for schedule(dynamic) shared(pruned, G, T, V, mc, C_max, induce_time) \
-        firstprivate(colors,ind,vs,es) private(u, P, C)
+        firstprivate(colors,ind,vs,es) private(u, P, C) num_threads(num_threads)
     for (i = 0; i < (V.size()) - (mc-1); ++i) {
         if (G.time_left(C_max,sec,time_limit,time_expired_msg)) {
 
@@ -219,7 +219,7 @@ int pmcx_maxclique_basic::search_dense(pmc_graph& G, vector<int>& sol) {
 
 
     #pragma omp parallel for schedule(dynamic) shared(pruned, G, adj, T, V, mc, C_max, induce_time) \
-        firstprivate(colors,ind,vs,es) private(u, P, C)
+        firstprivate(colors,ind,vs,es) private(u, P, C) num_threads(num_threads)
     for (i = 0; i < (V.size()) - (mc-1); ++i) {
         if (G.time_left(C_max,sec,time_limit,time_expired_msg)) {
 

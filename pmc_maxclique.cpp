@@ -50,7 +50,7 @@ int pmc_maxclique::search(pmc_graph& G, vector<int>& sol) {
     vector<short> ind(G.num_vertices(),0);
 
     #pragma omp parallel for schedule(dynamic) \
-        shared(pruned, G, T, V, mc, C_max) firstprivate(ind) private(u, P, C)
+        shared(pruned, G, T, V, mc, C_max) firstprivate(ind) private(u, P, C) num_threads(num_threads)
     for (i = 0; i < (V.size()) - (mc-1); ++i) {
         if (G.time_left(C_max,sec,time_limit,time_expired_msg)) {
 
@@ -179,7 +179,7 @@ int pmc_maxclique::search_dense(pmc_graph& G, vector<int>& sol) {
     vector<short> ind(G.num_vertices(),0);
 
     #pragma omp parallel for schedule(dynamic) \
-        shared(pruned, G, adj, T, V, mc, C_max) firstprivate(ind) private(u, P, C)
+        shared(pruned, G, adj, T, V, mc, C_max) firstprivate(ind) private(u, P, C) num_threads(num_threads)
     for (i = 0; i < (V.size()) - (mc-1); ++i) {
         if (G.time_left(C_max,sec,time_limit,time_expired_msg)) {
 
