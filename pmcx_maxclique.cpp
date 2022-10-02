@@ -54,7 +54,7 @@ int pmcx_maxclique::search(pmc_graph& G, vector<int>& sol) {
     vector<Vertex> V;
     V.reserve(G.num_vertices());
     G.order_vertices(V,G,lb_idx,lb,vertex_ordering,decr_order);
-    cout << "|V| = " << V.size() <<endl;
+    DEBUG_PRINTF("|V| = %i\n", V.size());
 
     vector<short> ind(G.num_vertices(),0);
     vector<int> es = G.get_edges_array();
@@ -154,7 +154,7 @@ void pmcx_maxclique::branch(
                         print_mc_info(C,sec);
                         if (mc >= param_ub) {
                             not_reached_ub = false;
-                            cout << "[pmc: upper bound reached]  omega = " << mc <<endl;
+                            DEBUG_PRINTF("[pmc: upper bound reached]  omega = %i\n", mc);
                         }
                     }
                 }
@@ -208,7 +208,7 @@ int pmcx_maxclique::search_dense(pmc_graph& G, vector<int>& sol) {
     vector<Vertex> V;
     V.reserve(G.num_vertices());
     G.order_vertices(V,G,lb_idx,lb,vertex_ordering,decr_order);
-    cout << "|V| = " << V.size() <<endl;
+    DEBUG_PRINTF("|V| = %i\n", V.size());
 
     vector<short> ind(G.num_vertices(),0);
     vector<int> es = G.get_edges_array();
@@ -221,7 +221,7 @@ int pmcx_maxclique::search_dense(pmc_graph& G, vector<int>& sol) {
     #pragma omp parallel for schedule(dynamic) shared(pruned, G, adj, T, V, mc, C_max, induce_time) \
         firstprivate(colors,ind,vs,es) private(u, P, C) num_threads(num_threads)
     for (i = 0; i < (V.size()) - (mc-1); ++i) {
-        cout << "DEBUG current mc: " << mc << std::endl;
+        DEBUG_PRINTF("DEBUG current mc: %i\n", mc);
         if (not_reached_ub) {
             if (G.time_left(C_max,sec,time_limit,time_expired_msg)) {
 
@@ -312,7 +312,7 @@ void pmcx_maxclique::branch_dense(
                         print_mc_info(C,sec);
                         if (mc >= param_ub) {
                             not_reached_ub = false;
-                            cout << "[pmc: upper bound reached]  omega = " << mc <<endl;
+                            DEBUG_PRINTF("[pmc: upper bound reached]  omega = %i\n", mc);
                         }
                     }
                 }

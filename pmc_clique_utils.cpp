@@ -175,8 +175,8 @@ void pmc_graph::print_break() {
 bool pmc_graph::time_left(vector<int> &C_max, double sec, double time_limit, bool &time_expired_msg) {
     if ((get_time() - sec) > time_limit) {
         if (time_expired_msg) {
-            cout << "\n### Time limit expired, terminating search. ###" <<endl;
-            cout << "Size: " << C_max.size() <<endl;
+            DEBUG_PRINTF("\n### Time limit expired, terminating search. ###\n");
+            DEBUG_PRINTF("Size: %i\n", C_max.size());
             print_max_clique(C_max);
             time_expired_msg = false;
         }

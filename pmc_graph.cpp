@@ -17,6 +17,7 @@
  ============================================================================
  */
 
+#include "pmc/pmc_debug_utils.h"
 #include "pmc/pmc_graph.h"
 
 using namespace pmc;
@@ -427,7 +428,7 @@ void pmc_graph::update_kcores(int* &pruned) {
         }
         else kcore[v] = 0;
     }
-    cout << "[pmc: updated cores]  K: " << max_core <<endl;
+    DEBUG_PRINTF("[pmc: updated cores]  K: %i\n", max_core);
 
     bin.clear();
     pos_tmp.clear();

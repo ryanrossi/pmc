@@ -17,6 +17,7 @@
  ============================================================================
  */
 
+#include "pmc/pmc_debug_utils.h"
 #include "pmc/pmc_heu.h"
 
 using namespace pmc;
@@ -170,7 +171,7 @@ int pmc_heu::search_cores(pmc_graph& G, vector<int>& C_max, int lb) {
         C = X; P = T;
     }
     C.clear();
-    cout << "[search_cores]\t mc = " << mc <<endl;
+    DEBUG_PRINTF("[search_cores]\t mc = %i\n", mc);
     return mc;
 }
 
@@ -181,8 +182,8 @@ int pmc_heu::search(pmc_graph& G, vector<int>& C_max) {
 
 
 inline void pmc_heu::print_info(vector<int> C_max) {
-    cout << "*** [pmc heuristic: thread " << omp_get_thread_num() + 1;
-    cout << "]   current max clique = " << C_max.size();
-    cout << ",  time = " << get_time() - sec << " sec" <<endl;
+    DEBUG_PRINTF("*** [pmc heuristic: thread %i", omp_get_thread_num() + 1);
+    DEBUG_PRINTF("]   current max clique = %i", C_max.size());
+    DEBUG_PRINTF(",  time = %i sec\n", get_time() - sec);
 }
 
