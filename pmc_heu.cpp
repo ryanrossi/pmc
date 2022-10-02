@@ -107,7 +107,7 @@ int pmc_heu::search_bounds(pmc_graph& G,
             C = X; P = T;
         }
     }
-    cout << "[pmc heuristic]\t mc = " << mc <<endl;
+    DEBUG_PRINTF("[pmc heuristic]\t mc = %i\n", mc);
     return mc;
 }
 
