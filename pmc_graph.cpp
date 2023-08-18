@@ -283,7 +283,7 @@ void pmc_graph::create_adj() {
         for (long long j = vertices[i]; j < vertices[i + 1]; j++ )
             adj[i][edges[j]] = true;
     }
-    cout << "Created adjacency matrix in " << get_time() - sec << " seconds" <<endl;
+    DEBUG_PRINTF("Created adjacency matrix in %i seconds\n", get_time() - sec);
 }
 
 
@@ -609,8 +609,7 @@ void pmc_graph::degree_bucket_sort(bool desc) {
         }
     }
 
-    cout << "[pmc: sorting neighbors]  |E| = " << edges.size();
-    cout << ", |E_sorted| = " << tmp_edges.size() <<endl;
+    DEBUG_PRINTF("[pmc: sorting neighbors]  |E| = %i, |E_sorted| = %i\n", edges.size(), tmp_edges.size());
     edges = tmp_edges;
 }
 
