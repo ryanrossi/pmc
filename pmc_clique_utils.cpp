@@ -17,6 +17,7 @@
  ============================================================================
  */
 
+#include "pmc/pmc_debug_utils.h"
 #include "pmc/pmc_graph.h"
 #include <algorithm>
 
@@ -31,12 +32,10 @@ int pmc_graph::initial_pruning(pmc_graph& G, int* &pruned, int lb) {
     }
 
     double sec = get_time();
-    cout << "[pmc: initial k-core pruning]  before pruning: |V| = " << G.num_vertices();
-    cout << ", |E| = " << G.num_edges() <<endl;
+    DEBUG_PRINTF("[pmc: initial k-core pruning]  before pruning: |V| = %i, |E| = %i\n", G.num_vertices(), G.num_edges());
     G.reduce_graph(pruned);
-    cout << "[pmc: initial k-core pruning]  after pruning:  |V| = " << G.num_vertices() - lb_idx;
-    cout << ", |E| = " << G.num_edges() <<endl;
-    cout << "[pmc]  initial pruning took " << get_time()-sec << " sec" <<endl;
+    DEBUG_PRINTF("[pmc: initial k-core pruning]  after pruning:  |V| = %i, |E| = %i\n", G.num_vertices() - lb_idx, G.num_edges());
+    DEBUG_PRINTF("[pmc]  initial pruning took %i sec\n", get_time()-sec);
 
     G.update_degrees();
     G.degree_bucket_sort(true); // largest to smallest degree
@@ -59,10 +58,10 @@ int pmc_graph::initial_pruning(pmc_graph& G, int* &pruned, int lb, vector<vector
     }
 
     double sec = get_time();
-    cout << "[pmc: initial k-core pruning]  before pruning: |V| = " << G.num_vertices() << ", |E| = " << G.num_edges() <<endl;
+    DEBUG_PRINTF("[pmc: initial k-core pruning]  before pruning: |V| = %i, |E| = %i\n", G.num_vertices(), G.num_edges());
     G.reduce_graph(pruned);
-    cout << "[pmc: initial k-core pruning]  after pruning:  |V| = " << G.num_vertices() - lb_idx << ", |E| = " << G.num_edges() <<endl;
-    cout << "[pmc]  initial pruning took " << get_time()-sec << " sec" <<endl;
+    DEBUG_PRINTF("[pmc: initial k-core pruning]  after pruning:  |V| = %i, |E| = %i\n", G.num_vertices() - lb_idx, G.num_edges());
+    DEBUG_PRINTF("[pmc]  initial pruning took %i sec\n", get_time()-sec);
 
     G.update_degrees();
     G.degree_bucket_sort(true);
@@ -169,7 +168,7 @@ void pmc_graph::print_info(vector<int> &C_max, double &sec) {
 
 
 void pmc_graph::print_break() {
-    cout << "-----------------------------------------------------------------------" <<endl;
+    DEBUG_PRINTF("-----------------------------------------------------------------------\n");
 }
 
 bool pmc_graph::time_left(vector<int> &C_max, double sec, double time_limit, bool &time_expired_msg) {
