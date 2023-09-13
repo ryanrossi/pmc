@@ -20,6 +20,8 @@
 #ifndef PMC_VERTEX_H_
 #define PMC_VERTEX_H_
 
+#include "pmc_debug_utils.h"
+
 using namespace std;
 
 namespace pmc {
@@ -44,9 +46,9 @@ namespace pmc {
     };
 
     inline static void print_mc_info(vector<int> &C_max, double &sec) {
-        cout << "*** [pmc: thread " << omp_get_thread_num() + 1;
-        cout << "]   current max clique = " << C_max.size();
-        cout << ",  time = " << get_time() - sec << " sec" <<endl;
+        DEBUG_PRINTF("*** [pmc: thread %i", omp_get_thread_num() + 1);
+        DEBUG_PRINTF("]   current max clique = %i", C_max.size());
+        DEBUG_PRINTF(",  time = %i sec\n", get_time() - sec);
     };
 };
 #endif

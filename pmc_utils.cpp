@@ -17,13 +17,13 @@
  ============================================================================
  */
 
-#include "pmc_utils.h"
+#include "pmc/pmc_utils.h"
 
 using namespace std;
 
 bool fexists(const char *filename) {
     ifstream ifile(filename);
-    return ifile;
+    return !ifile.fail();
 }
 
 void usage(char *argv0) {
@@ -75,13 +75,16 @@ void indent(int level, string str) {
 }
 
 void print_max_clique(vector<int>& C) {
+#ifdef PMC_ENABLE_DEBUG
     cout << "Maximum clique: ";
     for(int i = 0; i < C.size(); i++)
         cout << C[i] + 1 << " ";
     cout << endl;
+#endif
 }
 
 void print_n_maxcliques(set< vector<int> > C, int n) {
+#ifdef PMC_ENABLE_DEBUG
     set< vector<int> >::iterator it;
     int mc = 0;
     for( it = C.begin(); it != C.end(); it++) {
@@ -95,6 +98,7 @@ void print_n_maxcliques(set< vector<int> > C, int n) {
         }
         else break;
     }
+#endif
 }
 
 
@@ -114,7 +118,7 @@ int getdir (string dir, vector<string> &files) {
     }
 
     while ((dirp = readdir(dp)) != NULL) {
-        if (dirp->d_name != ".")
+        if (strcmp(dirp->d_name, ".") != 0)
             files.push_back(string(dirp->d_name));
     }
     closedir(dp);

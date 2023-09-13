@@ -85,3 +85,7 @@ exp/
 *.toc
 *.vrb
 *.xdy
+
+# build folders
+/cmake-build-*
+/build*

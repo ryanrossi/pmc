@@ -17,7 +17,8 @@
  ============================================================================
  */
 
-#include "pmc_graph.h"
+#include "pmc/pmc_debug_utils.h"
+#include "pmc/pmc_graph.h"
 
 using namespace pmc;
 using namespace std;
@@ -29,10 +30,10 @@ void pmc_graph::initialize() {
     avg_degree = 0;
     max_core = 0;
     is_gstats = false;
-    adj = NULL;
 }
 
-pmc_graph::~pmc_graph() { }
+pmc_graph::~pmc_graph() {
+}
 
 pmc_graph::pmc_graph(const string& filename) {
     initialize();
@@ -138,7 +139,7 @@ void pmc_graph::read_edges(const string& filename) {
     cout << "self-loops: " << self_edges <<endl;
 }
 
-pmc_graph::pmc_graph(long long nedges, int *ei, int *ej, int offset) {
+pmc_graph::pmc_graph(long long nedges, const int *ei, const int *ej, int offset) {
     initialize();
     map< int, vector<int> > vert_list;
     for (long long i = 0; i < nedges; i++) {
@@ -158,6 +159,14 @@ pmc_graph::pmc_graph(long long nedges, int *ei, int *ej, int offset) {
     vertex_degrees();
 }
 
+pmc_graph::pmc_graph(map<int,vector<int> > v_map) {
+  vertices.push_back(edges.size());
+  for (int i=0;i < v_map.size(); i++) {
+    edges.insert(edges.end(),v_map[i].begin(),v_map[i].end());
+    vertices.push_back(edges.size());
+  }
+  vertex_degrees();
+}
 
 void pmc_graph::read_mtx(const string& filename) {
     float connStrength = -DBL_MAX;
@@ -265,17 +274,16 @@ void pmc_graph::create_adj() {
     double sec = get_time();
 
     int size = num_vertices();
-    adj = new bool*[size];
+    adj.resize(size);
     for (int i = 0; i < size; i++) {
-        adj[i] = new bool[size];
-        memset(adj[i], 0, size * sizeof(bool));
+        adj[i].resize(size);
     }
 
     for (int i = 0; i < num_vertices(); i++) {
         for (long long j = vertices[i]; j < vertices[i + 1]; j++ )
             adj[i][edges[j]] = true;
     }
-    cout << "Created adjacency matrix in " << get_time() - sec << " seconds" <<endl;
+    DEBUG_PRINTF("Created adjacency matrix in %i seconds\n", get_time() - sec);
 }
 
 
@@ -291,17 +299,22 @@ void pmc_graph::sum_vertex_degrees() {
 }
 
 void pmc_graph::vertex_degrees() {
-    int n = vertices.size() - 1;
+    int n = static_cast<int>(vertices.size()) - 1;
     degree.resize(n);
 
     // initialize min and max to degree of first vertex
-    max_degree = min_degree = vertices[1] - vertices[0];
-    for (long long v=0; v<n; v++) {
-        degree[v] = vertices[v+1] - vertices[v];
-        if (max_degree < degree[v])  max_degree = degree[v];
-        if (degree[v] < min_degree)  min_degree = degree[v];
+    min_degree = static_cast<int>(vertices[1]) - static_cast<int>(vertices[0]);
+    max_degree = static_cast<int>(vertices[1]) - static_cast<int>(vertices[0]);
+    for (int v=0; v<n; v++) {
+        degree[v] = static_cast<int>(vertices[v+1]) - static_cast<int>(vertices[v]);
+        if (max_degree < degree[v])  {
+            max_degree = degree[v];
+        }
+        if (degree[v] < min_degree)  {
+            min_degree = degree[v];
+        }
     }
-    avg_degree = (double)edges.size()/n;
+    avg_degree = static_cast<double>(edges.size())/ static_cast<double>(n);
     return;
 }
 
@@ -415,7 +428,7 @@ void pmc_graph::update_kcores(int* &pruned) {
         }
         else kcore[v] = 0;
     }
-    cout << "[pmc: updated cores]  K: " << max_core <<endl;
+    DEBUG_PRINTF("[pmc: updated cores]  K: %i\n", max_core);
 
     bin.clear();
     pos_tmp.clear();
@@ -596,8 +609,7 @@ void pmc_graph::degree_bucket_sort(bool desc) {
         }
     }
 
-    cout << "[pmc: sorting neighbors]  |E| = " << edges.size();
-    cout << ", |E_sorted| = " << tmp_edges.size() <<endl;
+    DEBUG_PRINTF("[pmc: sorting neighbors]  |E| = %i, |E_sorted| = %i\n", edges.size(), tmp_edges.size());
     edges = tmp_edges;
 }
 

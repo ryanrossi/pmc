@@ -17,31 +17,32 @@
  ============================================================================
  */
 
-#ifndef PMC_MAXCLIQUE_H_
-#define PMC_MAXCLIQUE_H_
+#ifndef PMCX_MAXCLIQUE_H_
+#define PMCX_MAXCLIQUE_H_
 
 #include <cstddef>
 #include <sys/time.h>
 #include <unistd.h>
 #include <iostream>
-#include <algorithm>
 #include "pmc_headers.h"
 #include "pmc_utils.h"
 #include "pmc_graph.h"
 #include "pmc_input.h"
 #include "pmc_vertex.h"
+#include "pmc_neigh_cores.h"
+#include "pmc_neigh_coloring.h"
+#include <algorithm>
 
 using namespace std;
 
 namespace pmc {
 
-    class pmc_maxclique {
+    class pmcx_maxclique {
         public:
             vector<int>* edges;
             vector<long long>* vertices;
             vector<int>* bound;
             vector<int>* order;
-            vector<int>* degree;
             int param_ub;
             int ub;
             int lb;
@@ -60,7 +61,7 @@ namespace pmc {
             int num_threads;
 
             void initialize() {
-                vertex_ordering = "kcore";
+                vertex_ordering = "deg";
                 edge_ordering = 0;
                 style_bounds = 0;
                 style_dynamic_bounds = 0;
@@ -82,8 +83,7 @@ namespace pmc {
                 num_threads = params.threads;
             }
 
-
-            pmc_maxclique(pmc_graph& G, input& params) {
+            pmcx_maxclique(pmc_graph& G, input& params) {
                 bound = G.get_kcores();
                 order = G.get_kcore_ordering();
                 setup_bounds(params);
@@ -92,29 +92,32 @@ namespace pmc {
                 decr_order = params.decreasing_order;
             }
 
-            ~pmc_maxclique() {};
+            ~pmcx_maxclique() {};
 
             int search(pmc_graph& G, vector<int>& sol);
-
-            void branch(
+            inline void branch(
+                    vector<long long>& vs,
+                    vector<int>& es,
                     vector<Vertex> &P,
                     vector<short>& ind,
                     vector<int>& C,
                     vector<int>& C_max,
+                    vector< vector<int> >& colors,
                     int* &pruned,
                     int& mc);
 
-
             int search_dense(pmc_graph& G, vector<int>& sol);
-
-            void branch_dense(
+            inline void branch_dense(
+                    vector<long long>& vs,
+                    vector<int>& es,
                     vector<Vertex> &P,
                     vector<short>& ind,
                     vector<int>& C,
                     vector<int>& C_max,
+                    vector< vector<int> >& colors,
                     int* &pruned,
                     int& mc,
-                    bool** &adj);
+                    vector<vector<bool>> &adj);
 
     };
 };

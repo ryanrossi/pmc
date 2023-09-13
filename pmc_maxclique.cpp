@@ -17,7 +17,8 @@
  ============================================================================
  */
 
-#include "pmc_maxclique.h"
+#include "pmc/pmc_debug_utils.h"
+#include "pmc/pmc_maxclique.h"
 
 using namespace std;
 using namespace pmc;
@@ -50,7 +51,7 @@ int pmc_maxclique::search(pmc_graph& G, vector<int>& sol) {
     vector<short> ind(G.num_vertices(),0);
 
     #pragma omp parallel for schedule(dynamic) \
-        shared(pruned, G, T, V, mc, C_max) firstprivate(ind) private(u, P, C)
+        shared(pruned, G, T, V, mc, C_max) firstprivate(ind) private(u, P, C) num_threads(num_threads)
     for (i = 0; i < (V.size()) - (mc-1); ++i) {
         if (G.time_left(C_max,sec,time_limit,time_expired_msg)) {
 
@@ -122,7 +123,7 @@ void pmc_maxclique::branch(
                         print_mc_info(C,sec);
                         if (mc >= param_ub) {
                             not_reached_ub = false;
-                            cout << "[pmc: upper bound reached]  omega = " << mc <<endl;
+                            DEBUG_PRINTF("[pmc: upper bound reached]  omega = %i\n", mc);
                         }
                     }
 
@@ -154,7 +155,7 @@ int pmc_maxclique::search_dense(pmc_graph& G, vector<int>& sol) {
     vertices = G.get_vertices();
     edges = G.get_edges();
     degree = G.get_degree();
-    bool** adj = G.adj;
+    auto adj = G.adj;
 
     int* pruned = new int[G.num_vertices()];
     memset(pruned, 0, G.num_vertices() * sizeof(int));
@@ -179,7 +180,7 @@ int pmc_maxclique::search_dense(pmc_graph& G, vector<int>& sol) {
     vector<short> ind(G.num_vertices(),0);
 
     #pragma omp parallel for schedule(dynamic) \
-        shared(pruned, G, adj, T, V, mc, C_max) firstprivate(ind) private(u, P, C)
+        shared(pruned, G, adj, T, V, mc, C_max) firstprivate(ind) private(u, P, C) num_threads(num_threads)
     for (i = 0; i < (V.size()) - (mc-1); ++i) {
         if (G.time_left(C_max,sec,time_limit,time_expired_msg)) {
 
@@ -220,7 +221,7 @@ void pmc_maxclique::branch_dense(
         vector<int>& C_max,
         int* &pruned,
         int& mc,
-        bool** &adj) {
+        vector<vector<bool>> &adj) {
 
     // stop early if ub is reached
     if (not_reached_ub) {
@@ -249,7 +250,7 @@ void pmc_maxclique::branch_dense(
                         print_mc_info(C,sec);
                         if (mc >= param_ub) {
                             not_reached_ub = false;
-                            cout << "[pmc: upper bound reached]  omega = " << mc <<endl;
+                            DEBUG_PRINTF("[pmc: upper bound reached]  omega = %i\n", mc);
                         }
                     }
 

@@ -49,18 +49,19 @@ namespace pmc {
             double avg_degree;
             bool is_gstats;
             string fn;
-            bool** adj;
+            vector<vector<bool>> adj;
 
             // constructor
             pmc_graph(const string& filename);
             pmc_graph(bool graph_stats, const string& filename);
             pmc_graph(const string& filename, bool make_adj);
             pmc_graph(vector<long long> vs, vector<int> es) {
-                edges = es;
-                vertices = vs;
+                edges = std::move(es);
+                vertices = std::move(vs);
                 vertex_degrees();
             }
-            pmc_graph(long long nedges, int *ei, int *ej, int offset);
+            pmc_graph(long long nedges, const int *ei, const int *ej, int offset);
+            pmc_graph(map<int,vector<int> > v_map);
                 
             // destructor
             ~pmc_graph();
@@ -126,7 +127,7 @@ namespace pmc {
 
             // clique utils
             int initial_pruning(pmc_graph& G, int* &pruned, int lb);
-            int initial_pruning(pmc_graph& G, int* &pruned, int lb, bool** &adj);
+            int initial_pruning(pmc_graph& G, int* &pruned, int lb, vector<vector<bool>> &adj);
             void order_vertices(vector<Vertex> &V, pmc_graph &G,
                     int &lb_idx, int &lb, string vertex_ordering, bool decr_order);
 

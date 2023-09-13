@@ -17,7 +17,8 @@
  ============================================================================
  */
 
-#include "pmc_heu.h"
+#include "pmc/pmc_debug_utils.h"
+#include "pmc/pmc_heu.h"
 
 using namespace pmc;
 using namespace std;
@@ -72,7 +73,8 @@ int pmc_heu::search_bounds(pmc_graph& G,
     int mc = 0, mc_prev, mc_cur, i, v, k, lb_idx = 0;
 
     #pragma omp parallel for schedule(dynamic) \
-        shared(G, X, mc, C_max, lb_idx) private(i, v, P, mc_prev, mc_cur, C, k) firstprivate(ind)
+        shared(G, X, mc, C_max, lb_idx) private(i, v, P, mc_prev, mc_cur, C, k) firstprivate(ind) \
+        num_threads(num_threads)
     for (i = G.num_vertices()-1; i >= 0; --i) {
         if (found_ub) continue;
 
@@ -105,7 +107,7 @@ int pmc_heu::search_bounds(pmc_graph& G,
             C = X; P = T;
         }
     }
-    cout << "[pmc heuristic]\t mc = " << mc <<endl;
+    DEBUG_PRINTF("[pmc heuristic]\t mc = %i\n", mc);
     return mc;
 }
 
@@ -138,7 +140,7 @@ int pmc_heu::search_cores(pmc_graph& G, vector<int>& C_max, int lb) {
     }
 
     #pragma omp parallel for schedule(dynamic) \
-        shared(G, X, mc, C_max) private(i, v, P, mc_prev, mc_cur, C) firstprivate(ind)
+        shared(G, X, mc, C_max) private(i, v, P, mc_prev, mc_cur, C) firstprivate(ind) num_threads(num_threads)
     for (i = lb_idx; i <= G.num_vertices()-1; i++) {
 
         v = (*order)[i];
@@ -169,7 +171,7 @@ int pmc_heu::search_cores(pmc_graph& G, vector<int>& C_max, int lb) {
         C = X; P = T;
     }
     C.clear();
-    cout << "[search_cores]\t mc = " << mc <<endl;
+    DEBUG_PRINTF("[search_cores]\t mc = %i\n", mc);
     return mc;
 }
 
@@ -180,8 +182,8 @@ int pmc_heu::search(pmc_graph& G, vector<int>& C_max) {
 
 
 inline void pmc_heu::print_info(vector<int> C_max) {
-    cout << "*** [pmc heuristic: thread " << omp_get_thread_num() + 1;
-    cout << "]   current max clique = " << C_max.size();
-    cout << ",  time = " << get_time() - sec << " sec" <<endl;
+    DEBUG_PRINTF("*** [pmc heuristic: thread %i", omp_get_thread_num() + 1);
+    DEBUG_PRINTF("]   current max clique = %i", C_max.size());
+    DEBUG_PRINTF(",  time = %i sec\n", get_time() - sec);
 }
 
